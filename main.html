@@ -1,16 +1,68 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery List</title>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
+
+<table id="grocery-table">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Apples</td>
+            <td data-ns-test="prices">10.5</td>
+        </tr>
+        <tr>
+            <td>Bananas</td>
+            <td data-ns-test="prices">7.3</td>
+        </tr>
+        <tr>
+            <td>Oranges</td>
+            <td data-ns-test="prices">5.2</td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    function calculateTotal() {
+        // Get all the price elements
+        const priceElements = document.querySelectorAll('[data-ns-test="prices"]');
+        
+        // Initialize the total sum
+        let totalPrice = 0;
+        
+        // Loop through each price element and add its value to the total price
+        priceElements.forEach(function(priceElement) {
+            totalPrice += parseFloat(priceElement.textContent);
+        });
+
+        // Create a new row for the total
+        const table = document.getElementById('grocery-table');
+        const newRow = document.createElement('tr');
+        
+        // Create a new cell for the total price
+        const totalCell = document.createElement('td');
+        totalCell.setAttribute('colspan', 2);  // Make this cell span across both columns
+        totalCell.setAttribute('data-ns-test', 'grandTotal'); // Add the data attribute for the grand total
+        totalCell.textContent = 'Total: $' + totalPrice.toFixed(2);
+        
+        // Append the total cell to the new row
+        newRow.appendChild(totalCell);
+        
+        // Append the new row to the table
+        table.querySelector('tbody').appendChild(newRow);
+    }
+
+    // Call the function to calculate the total and add the row
+    calculateTotal();
 </script>
 
 </body>
-
 </html>
